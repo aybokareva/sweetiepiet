@@ -2,9 +2,7 @@ const { Telegraf } = require("telegraf");
 const cron = require("node-cron");
 
 // === Настройки бота ===
-const BOT_TOKEN = process.env.BOT_TOKEN || "7978283866:AAGdNP0c6xZD8yVE8cpJh-c7Vuxrq3muEXQ";
-const CHAT_ID = process.env.CHAT_ID || "143993786"; // можно удалить, если не нужна рассылка в группу
-
+const BOT_TOKEN = process.env.BOT_TOKEN || "ВАШ_ТОКЕН";
 const bot = new Telegraf(BOT_TOKEN);
 
 // === Список пользователей, нажавших /start ===
@@ -43,3 +41,9 @@ cron.schedule("0 9 * * *", () => {
     });
   }
 });
+
+// === Render требует запуска HTTP-сервера ===
+const PORT = process.env.PORT || 3000;
+require("express")().get("/", (req, res) => {
+  res.send("SweetiePieDay Bot работает!");
+}).listen(PORT, () => console.log(`Сервер запущен на порту ${PORT}`));
